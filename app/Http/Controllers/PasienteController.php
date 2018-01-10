@@ -43,15 +43,16 @@ class PasienteController extends Controller
     public function edit($id)
     {
         
-        $tratamientos = DB::table('tratamientos')->select('id','nombre')->get();
+        $tratamientos = DB::table('tratamientos')->select('id','nombre')
+        ->where('id_odontologo', '=', Auth::user()->id)
+        ->get();
         $paciente=Pasiente::find($id);
         // dd($tratamientos, $paciente);
         return view('paciente.edit',compact('paciente','tratamientos'));
     }
 
-     public function show($id)
-    {
-        
+    public function show($id)
+    {    
         $paciente=Pasiente::find($id);
         return view('paciente.show',compact('paciente'));
     }
